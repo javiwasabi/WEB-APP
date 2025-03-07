@@ -19,6 +19,18 @@ jobs:
         with:
           submodules: true
           lfs: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Ajusta la versión de Node.js según tus necesidades
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build app
+        run: npm run build --legacy-peer-deps
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -44,3 +56,4 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LEMON_CLIFF_0FF874C1E }}
           action: "close"
+
