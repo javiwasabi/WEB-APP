@@ -23,13 +23,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # Ajusta la versión de Node.js según tus necesidades
+          node-version: '20' 
 
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
-
-      - name: Build app
-        run: CI=false npm run build --legacy-peer-deps
+      - name: Build and Install app
+        run:
+            npm install --legacy-peer-deps
+            export CI=false
+            npm run build --legacy-peer-deps
+            rm -rf Portal-app
+            mkdir -p Portal-app
+            mv ./build/* Portal-app
 
       - name: Build And Deploy
         id: builddeploy
@@ -39,7 +42,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: "upload"
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          app_location: "/" # App source code path
+          app_location: "./Portal-app" # App source code path
           api_location: "" # Api source code path - optional
           output_location: "" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
