@@ -26,13 +26,13 @@ jobs:
           node-version: '20' 
 
       - name: Build and Install app
-        run:
-            npm install --legacy-peer-deps
-            export CI=false
-            npm run build --legacy-peer-deps
-            rm -rf Portal-app
-            mkdir -p Portal-app
-            mv ./build/* Portal-app
+        run: |
+          npm install --legacy-peer-deps
+          export CI=false
+          npm run build --legacy-peer-deps
+          rm -rf Portal-app
+          mkdir -p Portal-app
+          mv ./build/* Portal-app
 
       - name: Build And Deploy
         id: builddeploy
